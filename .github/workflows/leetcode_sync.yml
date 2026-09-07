@@ -9,13 +9,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    # This suppresses the Node 20 runtime wrapper enforcement alerts
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
     steps:
       - name: Run LeetCode Sync
-        uses: joshcai/leetcode-sync@v1.5
+        uses: joshcai/leetcode-sync@v1.7     # Upgraded version supports verbose and commit-header
         with:
           github-token: ${{ github.token }}
           leetcode-csrf-token: ${{ secrets.LEETCODE_CSRF_TOKEN }}
           leetcode-session: ${{ secrets.LEETCODE_SESSION }}
-          destination-folder: 'solutions'                   # Subfolder inside repo
+          destination-folder: 'solutions'                   
           verbose: true
           commit-header: '[LeetCode Sync]'
